@@ -3,9 +3,13 @@ extends KinematicBody2D
 export var max_speed = 1
 export var acceleration = 1
 
+
 var current_speed = 0
 var speed = Vector2()
 var can_jump = true
+
+
+signal maze_entered
 
 
 func _ready():
@@ -22,12 +26,18 @@ func _physics_process(delta):
 		velocity.y += 1
 	if Input.is_action_pressed("ui_up"):
 		velocity.y -= 1
+	
 	if Input.is_action_pressed("ui_jump") and can_jump:
 		set_collision_layer(2)
 		set_collision_mask(2)
 		can_jump = false
 		$Jump.start()
-		
+	
+	if is_on_floor() or is_on_ceiling():
+		speed.y = 0
+	if is_on_wall():
+		speed.x = 0
+	
 	if velocity.length() > 0:
 		velocity = velocity.normalized()
 		speed += acceleration * velocity
@@ -44,13 +54,13 @@ func _physics_process(delta):
 			speed.y -= acceleration * (speed.y / abs(speed.y))
 		else:
 			speed.y = 0
-	
-	if is_on_floor() or is_on_ceiling():
-		speed.y = 0
-	if is_on_wall():
-		speed.x = 0
 		
 	move_and_slide(speed, Vector2.UP)
+	
+	for i in get_slide_count():
+		var collision = get_slide_collision(i)
+		if collision.collider.name == "Maze" and not can_jump:
+			emit_signal("maze_entered")
 
 
 func _On_Rest_timeout():

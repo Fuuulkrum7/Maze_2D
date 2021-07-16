@@ -15,12 +15,6 @@ var now_y = 0
 # проденный в лабиринте путь
 var way = []
 
-func choice(data):
-	randomize()
-	var lenght = len(data)
-	var result = data[randi() % lenght]
-	
-	return result
 
 func create(width, height):
 	# делаем заготовку из -1
@@ -49,7 +43,7 @@ func create(width, height):
 	
 
 	# выбираем начальную клетку
-	new_X_and_Y = choice(need_to_visit)
+	new_X_and_Y = Global.choice(need_to_visit)
 
 	# определяем х
 	now_x = new_X_and_Y[0]
@@ -100,7 +94,7 @@ func createMaze(width, height):
 		# если соседи есть
 		if len(now_neighbors) > 0:
 			# выбираем одного из них
-			var new_x_y = choice(now_neighbors)
+			var new_x_y = Global.choice(now_neighbors)
 
 			# извлекаем будущие координаты
 			var new_x = new_x_y[0]
@@ -129,7 +123,7 @@ func createMaze(width, height):
 			# удаляем их
 			way.remove(len(way) - 1)
 		else:  # иначе выбираем случайную клетку из непосещенных
-			var new = choice(need_to_visit)
+			var new = Global.choice(need_to_visit)
 			now_x = new[0]
 			now_y = new[1]
 
