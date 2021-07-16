@@ -19,8 +19,8 @@ func Show_maze():
 			else:
 				$Maze.set_cellv(Vector2(x, y), 1)
 	
-	var ghost_pos = Vector2((int((randi() % int(WIDTH * 0.8) + WIDTH * 0.1) / 2) * 2 + 1) * 64,
-							(int((randi() % int(HEIGHT * 0.8) + HEIGHT * 0.1) / 2) * 2 + 1) * 64)
+	var ghost_pos = Vector2((int((randi() % int(WIDTH * 0.6) + WIDTH * 0.2) / 2) * 2 + 1) * 64,
+							(int((randi() % int(HEIGHT * 0.6) + HEIGHT * 0.2) / 2) * 2 + 1) * 64)
 	
 	$Ghost.position = ghost_pos
 

@@ -25,7 +25,7 @@ func _physics_process(delta):
 	var delta_pos = player_pos - position
 	var max_delta = max(abs(delta_pos.x), abs(delta_pos.y))
 	
-	if sqrt(delta_pos.x * delta_pos.x + delta_pos.y * delta_pos.y) < 700:
+	if sqrt(delta_pos.x * delta_pos.x + delta_pos.y * delta_pos.y) < 800:
 		delta_pos /= max_delta
 	
 		position += delta_pos.normalized() * speed
