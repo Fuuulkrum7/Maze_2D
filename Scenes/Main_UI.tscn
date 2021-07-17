@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Fonts/Kenney Future Square.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Scripts/Main_UI.gd" type="Script" id=2]
+[ext_resource path="res://Sprites/Key0.png" type="Texture" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -29,5 +30,9 @@ valign = 1
 
 [node name="One_Second" type="Timer" parent="."]
 one_shot = true
+
+[node name="Key" type="Sprite" parent="."]
+position = Vector2( 975.439, 43.7266 )
+texture = ExtResource( 3 )
 
 [connection signal="timeout" from="One_Second" to="." method="_on_One_Second_timeout"]

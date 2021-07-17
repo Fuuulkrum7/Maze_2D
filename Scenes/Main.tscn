@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Maze_Generator.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Maze.tres" type="TileSet" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Main_UI.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Ghost.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Chest.tscn" type="PackedScene" id=8]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 3 )
@@ -48,4 +49,7 @@ rect_scale = Vector2( 1.2, 1.2 )
 [node name="Ghost" parent="." instance=ExtResource( 7 )]
 position = Vector2( -70, -70 )
 
+[node name="Chest" parent="." instance=ExtResource( 8 )]
+
 [connection signal="maze_entered" from="Player" to="." method="_on_Player_maze_entered"]
+[connection signal="body_entered" from="Chest" to="." method="_On_Chest_entered"]
