@@ -33,6 +33,7 @@ one_shot = true
 
 [node name="Key" type="Sprite" parent="."]
 position = Vector2( 975.439, 43.7266 )
+z_index = 3
 texture = ExtResource( 3 )
 
 [connection signal="timeout" from="One_Second" to="." method="_on_One_Second_timeout"]

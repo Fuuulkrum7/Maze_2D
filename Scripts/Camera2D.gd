@@ -18,19 +18,14 @@ func _physics_process(delta):
 func _input(event):
 	if event is InputEventMouseButton:
 		"""
-		if event.button_index == BUTTON_WHEEL_UP and event.pressed and zoom > Vector2(0.5, 0.5):
-			change_scale(-1)
-		if event.button_index == BUTTON_WHEEL_DOWN and event.pressed and zoom < Vector2(1.5, 1.5):
-			change_scale(1)
-		"""
+		if event.button_index == BUTTON_WHEEL_UP and event.pressed and zoom > Vector2(0.9, 0.9):
+			zoom -= Vector2(0.05, 0.05)
+		if event.button_index == BUTTON_WHEEL_DOWN and event.pressed and zoom < Vector2(1.9, 1.9):
+			zoom += Vector2(0.05, 0.05)"""
+		
 		if event.button_index == BUTTON_LEFT:
 			pressed = event.pressed
 	
 	if event is InputEventMouseMotion and pressed:
 		position -= event.speed / 40
 
-
-func change_scale(dir):
-	zoom += Vector2(0.05, 0.05) * dir
-	$Main_UI.rect_scale += Vector2(0.05, 0.05) * dir
-	$Main_UI.rect_size += Vector2(25.6, 15) * dir

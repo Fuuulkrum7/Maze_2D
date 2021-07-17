@@ -35,16 +35,16 @@ acceleration = 30
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2( 507.969, 301.606 )
 current = true
-zoom = Vector2( 1.2, 1.2 )
+zoom = Vector2( 1.6, 1.6 )
 script = ExtResource( 4 )
 A = 2.0
 
 [node name="Main_UI" parent="Camera" instance=ExtResource( 6 )]
-margin_left = -615.0
-margin_top = -361.0
-margin_right = 409.0
-margin_bottom = 239.0
-rect_scale = Vector2( 1.2, 1.2 )
+margin_left = -820.004
+margin_top = -460.0
+margin_right = 203.996
+margin_bottom = 116.0
+rect_scale = Vector2( 1.6, 1.6 )
 
 [node name="Ghost" parent="." instance=ExtResource( 7 )]
 position = Vector2( -70, -70 )

@@ -22,6 +22,12 @@ config/icon="res://Sprites/icon.png"
 
 Global="*res://Scripts/Global.gd"
 
+[display]
+
+window/size/height=576
+window/stretch/mode="2d"
+window/stretch/aspect="expand"
+
 [input]
 
 ui_left={
