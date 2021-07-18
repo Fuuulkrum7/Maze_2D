@@ -5,7 +5,6 @@ export(int) var HEIGHT = 0		# высота лабирина
 
 var maze = []					# заготовка под лабиринт
 var has_key = false				# есть ли ключ
-var death = false				# умер ли игрок
 var closed_chest = preload("res://Sprites/Chest0.png")
 var opened_chest = preload("res://Sprites/Chest1.png")
 var ghost_key = preload("res://Sprites/Key0.png")
@@ -33,7 +32,6 @@ func Show_maze():
 	$Chest.position = ghost_pos
 	
 	has_key = false
-	death = false
 
 
 func _ready():
@@ -51,19 +49,23 @@ func _ready():
 	add_child(Finish)
 
 
+func Restart():
+	Global._Player.position = Global._Spawn_pos
+	Show_maze()
+	$Camera/Main_UI/Key.texture = ghost_key
+	$Chest/Sprite.texture = closed_chest
+
+
 func _On_body_entered(body):
 	# функция рестарта
-	if death or has_key:
-		Global._Player.position = Global._Spawn_pos
-		Show_maze()
-		$Camera/Main_UI/Key.texture = ghost_key
-		$Chest/Sprite.texture = closed_chest
+	if has_key:
+		$Camera/Main_UI.Finish()
 
 
 func _On_enemy_entered(body):
 	if body == Global._Player:
-		death = true
-		_On_body_entered(body)
+		$Camera/Main_UI.Continue()
+		$Camera/Main_UI/Continue.visible = false
 
 
 func _On_Chest_entered(body):

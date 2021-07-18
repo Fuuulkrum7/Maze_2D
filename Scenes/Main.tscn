@@ -34,6 +34,7 @@ acceleration = 30
 
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2( 507.969, 301.606 )
+z_index = 3
 current = true
 zoom = Vector2( 1.6, 1.6 )
 script = ExtResource( 4 )
@@ -52,4 +53,5 @@ position = Vector2( -70, -70 )
 [node name="Chest" parent="." instance=ExtResource( 8 )]
 
 [connection signal="maze_entered" from="Player" to="." method="_on_Player_maze_entered"]
+[connection signal="restart" from="Camera/Main_UI" to="." method="Restart"]
 [connection signal="body_entered" from="Chest" to="." method="_On_Chest_entered"]
