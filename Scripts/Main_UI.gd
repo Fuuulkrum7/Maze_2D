@@ -31,6 +31,7 @@ func _on_One_Second_timeout():
 		$Rest_Timer.visible = false
 
 
+# Прячет/отображает кнопки, ставит игру на паузу
 func Continue():
 	$Continue.visible = not $Continue.visible
 	get_tree().paused = not get_tree().paused
@@ -39,16 +40,31 @@ func Continue():
 	$Key.visible = not $Key.visible
 
 
+# Перезапуск уровня
 func _on_Restart_pressed():
+	current_time = 0
+	$Rest_Timer.visible = false
+	
 	Continue()
 	$Continue.visible = false
 	emit_signal("restart")
 
 
+# Выход из игры
 func _on_Exit_pressed():
+	get_tree().paused = false
 	Global.goto_scene("res://Scenes/Menu.tscn")
 
 
+# Вызывается при финише
 func Finish():
+	$Win_Text.visible = true
+	$Finish_Timer.start()
+	get_tree().paused = true
+
+
+func _on_Finish_Timer_timeout():
+	$Win_Text.visible = false
 	Continue()
 	$Continue.visible = false
+	get_tree().paused = true

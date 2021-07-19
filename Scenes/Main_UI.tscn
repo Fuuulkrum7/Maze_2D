@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Fonts/Kenney Future Square.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Scripts/Main_UI.gd" type="Script" id=2]
@@ -6,6 +6,10 @@
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 26
 font_data = ExtResource( 1 )
 
 [node name="Main_UI" type="Control"]
@@ -68,7 +72,22 @@ anchor_right = 0.55
 anchor_bottom = 0.55
 text = "Exit"
 
+[node name="Win_Text" type="Label" parent="."]
+visible = false
+margin_left = 447.396
+margin_top = 273.724
+margin_right = 570.396
+margin_bottom = 303.724
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0.0784314, 1, 0, 1 )
+text = "You won?"
+
+[node name="Finish_Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="timeout" from="One_Second" to="." method="_on_One_Second_timeout"]
 [connection signal="pressed" from="Continue" to="." method="Continue"]
 [connection signal="pressed" from="Restart" to="." method="_on_Restart_pressed"]
 [connection signal="pressed" from="Exit" to="." method="_on_Exit_pressed"]
+[connection signal="timeout" from="Finish_Timer" to="." method="_on_Finish_Timer_timeout"]
