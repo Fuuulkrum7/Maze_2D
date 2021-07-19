@@ -41,6 +41,15 @@ func choice(data):
 	
 	return result
 
+
+func load_file(path):
+	var file = File.new()
+	file.open(path, File.READ)
+	var content = file.get_as_text()
+	file.close()
+	return content
+
+
 """
 TODO
 Темный режим (?)
