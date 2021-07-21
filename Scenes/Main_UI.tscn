@@ -1,12 +1,24 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Fonts/Kenney Future Square.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Fonts/TriodPostnaja.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Scripts/Main_UI.gd" type="Script" id=2]
 [ext_resource path="res://Sprites/Key0.png" type="Texture" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
 font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 20
+font_data = ExtResource( 1 )
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends Label
+
+
+func _on_Items_Timer_timeout():
+	text = \"\"
+"
 
 [sub_resource type="DynamicFont" id=2]
 size = 26
@@ -21,7 +33,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Key" type="Sprite" parent="."]
+position = Vector2( 975.439, 43.7266 )
+z_index = 3
+texture = ExtResource( 3 )
+
 [node name="Rest_Timer" type="Label" parent="."]
+pause_mode = 1
 visible = false
 margin_left = 16.379
 margin_top = 21.4187
@@ -33,13 +51,27 @@ text = "15"
 align = 1
 valign = 1
 
-[node name="One_Second" type="Timer" parent="."]
-one_shot = true
+[node name="Found_Items" type="Label" parent="."]
+margin_left = 3.0
+margin_top = 176.0
+margin_right = 103.0
+margin_bottom = 316.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+script = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Key" type="Sprite" parent="."]
-position = Vector2( 975.439, 43.7266 )
-z_index = 3
-texture = ExtResource( 3 )
+[node name="Win_Text" type="Label" parent="."]
+visible = false
+margin_left = 447.396
+margin_top = 273.724
+margin_right = 570.396
+margin_bottom = 303.724
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0.0784314, 1, 0, 1 )
+text = "You won?"
 
 [node name="Continue" type="Button" parent="."]
 visible = false
@@ -72,22 +104,21 @@ anchor_right = 0.55
 anchor_bottom = 0.55
 text = "Exit"
 
-[node name="Win_Text" type="Label" parent="."]
-visible = false
-margin_left = 447.396
-margin_top = 273.724
-margin_right = 570.396
-margin_bottom = 303.724
-custom_fonts/font = SubResource( 2 )
-custom_colors/font_color = Color( 0.0784314, 1, 0, 1 )
-text = "You won?"
+[node name="One_Second" type="Timer" parent="."]
+pause_mode = 1
+one_shot = true
 
 [node name="Finish_Timer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
 
-[connection signal="timeout" from="One_Second" to="." method="_on_One_Second_timeout"]
+[node name="Items_Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
 [connection signal="pressed" from="Continue" to="." method="Continue"]
 [connection signal="pressed" from="Restart" to="." method="_on_Restart_pressed"]
 [connection signal="pressed" from="Exit" to="." method="_on_Exit_pressed"]
+[connection signal="timeout" from="One_Second" to="." method="_on_One_Second_timeout"]
 [connection signal="timeout" from="Finish_Timer" to="." method="_on_Finish_Timer_timeout"]
+[connection signal="timeout" from="Items_Timer" to="Found_Items" method="_on_Items_Timer_timeout"]

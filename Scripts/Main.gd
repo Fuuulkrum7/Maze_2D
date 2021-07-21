@@ -5,6 +5,9 @@ export(int) var HEIGHT = 0		# высота лабирина
 
 var maze = []					# заготовка под лабиринт
 var has_key = false				# есть ли ключ
+var item = ""					# заготовка под найденный пример
+
+# Заготовки под изображения ключа и сундука
 var closed_chest = preload("res://Sprites/Chest0.png")
 var opened_chest = preload("res://Sprites/Chest1.png")
 var ghost_key = preload("res://Sprites/Key0.png")
@@ -24,12 +27,14 @@ func Show_maze():
 			else:
 				$Maze.set_cellv(Vector2(x, y), 1)
 	
-	var ghost_pos = Vector2((int((randi() % int(WIDTH * 0.6) + WIDTH * 0.2) / 2) * 2 + 1) * 64,
+	# Выбираем позицию для моба и сундука
+	var chest_pos = Vector2((int((randi() % int(WIDTH * 0.6) + WIDTH * 0.2) / 2) * 2 + 1) * 64,
 							(int((randi() % int(HEIGHT * 0.6) + HEIGHT * 0.2) / 2) * 2 + 1) * 64)
 	
-	$Ghost.position = ghost_pos
-	ghost_pos += Vector2(32, 25.5)
-	$Chest.position = ghost_pos
+	# Ставим моба и сундук на позиции
+	$Ghost.position = chest_pos
+	chest_pos += Vector2(32, 25.5)
+	$Chest.position = chest_pos
 	
 	has_key = false
 
@@ -59,6 +64,11 @@ func Restart():
 func _On_body_entered(body):
 	# функция рестарта
 	if has_key:
+		if Global.inventory["items"].has(item):
+			Global.inventory["items"][item] += 1
+		else:
+			Global.inventory["items"][item] = 1
+		
 		$Camera/Main_UI.Finish()
 
 
@@ -73,6 +83,16 @@ func _On_Chest_entered(body):
 		has_key = true
 		$Camera/Main_UI/Key.texture = normal_key
 		$Chest/Sprite.texture = opened_chest
+		
+		# Выбираем предмет из сундука
+		item = Global.choice(Global.items["items"].keys())
+		
+		var found = """Найдено:
+			Ключ
+			%s""" % item
+		
+		$Camera/Main_UI/Found_Items.text = found
+		$Camera/Main_UI/Items_Timer.start()
 
 
 func _on_Player_maze_entered():
