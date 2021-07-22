@@ -5,7 +5,7 @@ export(int) var HEIGHT = 0		# высота лабирина
 
 var maze = []					# заготовка под лабиринт
 var has_key = false				# есть ли ключ
-var item = ""					# заготовка под найденный пример
+var items = []					# заготовка под найденный пример
 
 # Заготовки под изображения ключа и сундука
 var closed_chest = preload("res://Sprites/Chest0.png")
@@ -37,6 +37,7 @@ func Show_maze():
 	$Chest.position = chest_pos
 	
 	has_key = false
+	items.clear()
 
 
 func _ready():
@@ -64,10 +65,11 @@ func Restart():
 func _On_body_entered(body):
 	# функция рестарта
 	if has_key:
-		if Global.inventory["items"].has(item):
-			Global.inventory["items"][item] += 1
-		else:
-			Global.inventory["items"][item] = 1
+		for item in items:
+			if Global.inventory["items"].has(item):
+				Global.inventory["items"][item] += 1
+			else:
+				Global.inventory["items"][item] = 1
 		
 		$Camera/Main_UI.Finish()
 
@@ -79,13 +81,15 @@ func _On_enemy_entered(body):
 
 
 func _On_Chest_entered(body):
-	if body == Global._Player:
+	if body == Global._Player and not has_key:
 		has_key = true
 		$Camera/Main_UI/Key.texture = normal_key
 		$Chest/Sprite.texture = opened_chest
 		
 		# Выбираем предмет из сундука
-		item = Global.choice(Global.items["items"].keys())
+		var item = Global.choice(Global.items["items"].keys())
+		
+		items.append(item)
 		
 		var found = """Найдено:
 			Ключ
