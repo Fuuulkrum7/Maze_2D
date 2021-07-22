@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/imgonline-com-ua-Resize-YKEO5QRRKRdDp0V.png-ce8ca69183e80a775fb681ff4d840556.stex"
+path="res://.import/Wall.png-c1e6c8a44733b40234aae37bb1bf51ff.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/imgonline-com-ua-Resize-YKEO5QRRKRdDp0V.png"
-dest_files=[ "res://.import/imgonline-com-ua-Resize-YKEO5QRRKRdDp0V.png-ce8ca69183e80a775fb681ff4d840556.stex" ]
+source_file="res://Sprites/Wall.png"
+dest_files=[ "res://.import/Wall.png-c1e6c8a44733b40234aae37bb1bf51ff.stex" ]
 
 [params]
 

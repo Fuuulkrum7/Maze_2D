@@ -1,6 +1,6 @@
 [gd_resource type="TileSet" load_steps=4 format=2]
 
-[ext_resource path="res://Sprites/imgonline-com-ua-Resize-YKEO5QRRKRdDp0V.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/Wall.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/Dungeon_Tileset.png" type="Texture" id=2]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
