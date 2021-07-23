@@ -10,6 +10,8 @@ var items = {}
 
 const _Finish = preload("res://Scenes/Finish.tscn")
 const _Spawn = preload("res://Scenes/SpawnPoint.tscn")
+const _Ghost = preload("res://Scenes/Ghost.tscn")
+const _Horse = preload("res://Scenes/Horse.tscn")
 
 
 func _ready():

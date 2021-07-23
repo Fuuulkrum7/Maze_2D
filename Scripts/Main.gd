@@ -6,6 +6,7 @@ export(int) var HEIGHT = 0		# высота лабирина
 var maze = []					# заготовка под лабиринт
 var has_key = false				# есть ли ключ
 var items = []					# заготовка под найденный пример
+var mob = null					# заготовка под моба
 
 # Заготовки под изображения ключа и сундука
 var closed_chest = preload("res://Sprites/Chest0.png")
@@ -15,26 +16,34 @@ var normal_key = preload("res://Sprites/Key1.png")
 
 func Show_maze():
 	# создаем лабиринт
-	maze = $Maze.createMaze(WIDTH, HEIGHT)
+	maze = $Navigation/Maze.createMaze(WIDTH, HEIGHT)
 	
 	# перебираем лабиринт и выводим его на экран
 	for y in range(len(maze)):
 		for x in range(len(maze[y])):
 			if maze[y][x] == -1:
-				$Maze_Border.set_cellv(Vector2(x, y), 0)
+				$Navigation/Maze_Border.set_cellv(Vector2(x, y), 0)
 			elif maze[y][x] == 0:
-				$Maze.set_cellv(Vector2(x, y), 0)
+				$Navigation/Maze.set_cellv(Vector2(x, y), 0)
 			else:
-				$Maze.set_cellv(Vector2(x, y), 1)
+				$Navigation/Maze.set_cellv(Vector2(x, y), 1)
 	
 	# Выбираем позицию для моба и сундука
 	var chest_pos = Vector2((int((randi() % int(WIDTH * 0.6) + WIDTH * 0.2) / 2) * 2 + 1) * 64,
 							(int((randi() % int(HEIGHT * 0.6) + HEIGHT * 0.2) / 2) * 2 + 1) * 64)
 	
+	mob = Global.choice([Global._Horse, Global._Ghost]).instance()
+	$Navigation.ghost = (mob.name == "Ghost")
+	$Navigation.character = mob
+	
 	# Ставим моба и сундук на позиции
-	$Ghost.position = chest_pos
-	chest_pos += Vector2(32, 25.5)
+	mob.position = chest_pos
+	add_child(mob)
+	print(mob.name)
+	
+	chest_pos += Vector2(32, 38.5)
 	$Chest.position = chest_pos
+	$Navigation.start_pos = chest_pos
 	
 	has_key = false
 	items.clear()
@@ -57,6 +66,9 @@ func _ready():
 
 func Restart():
 	Global._Player.position = Global._Spawn_pos
+	Global._Player.can_jump = true
+	remove_child(mob)
+	
 	Show_maze()
 	$Camera/Main_UI/Key.texture = ghost_key
 	$Chest/Sprite.texture = closed_chest
