@@ -95,6 +95,11 @@ func _On_enemy_entered(body):
 func _On_Chest_entered(body):
 	if body == Global._Player and not has_key:
 		has_key = true
+		
+		if mob.name == "Horse":
+			mob.chest_closed = false
+			$Navigation.speed += 100
+		
 		$Camera/Main_UI/Key.texture = normal_key
 		$Chest/Sprite.texture = opened_chest
 		

@@ -16,8 +16,8 @@ HEIGHT = 51
 
 [node name="Navigation" type="Navigation2D" parent="."]
 script = ExtResource( 10 )
-character_speed = 350.0
-max_distance = 3000.0
+character_speed = 340.0
+max_distance = 4000.0
 
 [node name="Maze" type="TileMap" parent="Navigation"]
 z_index = -1

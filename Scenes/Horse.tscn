@@ -7,6 +7,7 @@
 [sub_resource type="GDScript" id=19]
 script/source = "extends Area2D
 
+var chest_closed = true
 
 func _ready():
 	connect(\"body_entered\", get_parent(), \"_On_enemy_entered\")
@@ -112,7 +113,7 @@ position = Vector2( -8.92744, -13.6457 )
 scale = Vector2( 1.87373, 2.02188 )
 frames = SubResource( 18 )
 animation = "Standart"
-frame = 3
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

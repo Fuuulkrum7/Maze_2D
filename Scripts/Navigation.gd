@@ -22,7 +22,7 @@ func _process(delta):
 		_update_navigation_path(character.position, Global._Player.position)
 		var walk_distance = speed * delta
 	
-		if distance_ > 0:
+		if distance_:
 			move_along_path(walk_distance)
 
 
@@ -45,8 +45,10 @@ func move_along_path(distance):
 		distance -= distance_between_points
 		last_point = path[0]
 		path.remove(0)
-	
-	character.get_child(0).play("Standart")
+		
+	if path.size() == 0 and character.get_child(0).animation != "Standart":
+		print(character.get_child(0).animation)
+		character.get_child(0).play("Standart")
 	character.position = last_point
 
 
@@ -55,7 +57,7 @@ func _update_navigation_path(start_position, end_position, go_home=false):
 	distance_ = _get_distance(path)
 	speed = character_speed
 	
-	if distance_ > max_distance:
+	if distance_ > max_distance and character.chest_closed:
 		path = get_simple_path(start_position, start_pos, true)
 		speed = character_speed / 2
 	
