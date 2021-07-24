@@ -78,6 +78,13 @@ func _On_body_entered(body):
 	# функция рестарта
 	if has_key:
 		for item in items:
+			
+			"""
+			print(item)
+			print(Global.inventory["items"])
+			print(Global.inventory["items"].has(item))
+			"""
+			
 			if Global.inventory["items"].has(item):
 				Global.inventory["items"][item] += 1
 			else:
@@ -98,7 +105,7 @@ func _On_Chest_entered(body):
 		
 		if mob.name == "Horse":
 			mob.chest_closed = false
-			$Navigation.speed += 100
+			$Navigation.speed = 2 * $Navigation.character_speed
 		
 		$Camera/Main_UI/Key.texture = normal_key
 		$Chest/Sprite.texture = opened_chest

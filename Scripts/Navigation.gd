@@ -47,19 +47,21 @@ func move_along_path(distance):
 		path.remove(0)
 		
 	if path.size() == 0 and character.get_child(0).animation != "Standart":
-		print(character.get_child(0).animation)
 		character.get_child(0).play("Standart")
 	character.position = last_point
 
 
-func _update_navigation_path(start_position, end_position, go_home=false):
+func _update_navigation_path(start_position, end_position):
 	path = get_simple_path(start_position, end_position, true)
 	distance_ = _get_distance(path)
-	speed = character_speed
+	
+	if character.chest_closed:
+		speed = character_speed
 	
 	if distance_ > max_distance and character.chest_closed:
 		path = get_simple_path(start_position, start_pos, true)
-		speed = character_speed / 2
+		distance_ = _get_distance(path)
+		speed = character_speed / 1.5
 	
 	path.remove(0)
 

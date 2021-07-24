@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Fonts/TriodPostnaja.ttf" type="DynamicFontData" id=1]
 
@@ -6,12 +6,13 @@
 size = 22
 font_data = ExtResource( 1 )
 
-[sub_resource type="GDScript" id=4]
+[sub_resource type="GDScript" id=2]
 script/source = "extends Label
 
 
 var items_number = 0
 var current_items = 0
+var price = 0
 
 
 func _on_Plus_pressed():
@@ -26,13 +27,25 @@ func _on_Minus_pressed():
 		$Count.text = str(current_items)
 "
 
-[sub_resource type="DynamicFont" id=2]
-size = 20
-font_data = ExtResource( 1 )
-
 [sub_resource type="DynamicFont" id=3]
 size = 20
 font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 20
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 20
+font_data = ExtResource( 1 )
+
+[sub_resource type="GDScript" id=6]
+script/source = "extends Label
+
+
+func _on_Button_pressed():
+	text = \"Итого: \" + str(get_parent().price * get_parent().current_items)
+"
 
 [node name="Cell_Items" type="Label"]
 margin_right = 234.0
@@ -40,7 +53,7 @@ margin_bottom = 23.0
 custom_fonts/font = SubResource( 1 )
 align = 1
 valign = 1
-script = SubResource( 4 )
+script = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -48,7 +61,7 @@ __meta__ = {
 [node name="Minus" type="Button" parent="."]
 margin_left = 251.809
 margin_right = 270.809
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "-"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -57,7 +70,7 @@ __meta__ = {
 [node name="Plus" type="Button" parent="."]
 margin_left = 324.658
 margin_right = 344.658
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "+"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -68,7 +81,7 @@ margin_left = 274.431
 margin_top = -3.68179
 margin_right = 321.431
 margin_bottom = 29.3182
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
 text = "0"
 align = 1
 valign = 1
@@ -76,5 +89,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Result" type="Label" parent="."]
+margin_left = 361.0
+margin_top = -1.0
+margin_right = 551.0
+margin_bottom = 28.0
+custom_fonts/font = SubResource( 5 )
+text = "Итого: 0"
+align = 1
+valign = 1
+script = SubResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="pressed" from="Minus" to="." method="_on_Minus_pressed"]
+[connection signal="pressed" from="Minus" to="Result" method="_on_Button_pressed"]
 [connection signal="pressed" from="Plus" to="." method="_on_Plus_pressed"]
+[connection signal="pressed" from="Plus" to="Result" method="_on_Button_pressed"]

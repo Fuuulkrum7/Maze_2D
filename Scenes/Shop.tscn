@@ -22,6 +22,7 @@ func _ready():
 		
 		item.text = i
 		item.items_number = Global.inventory[\"items\"][i]
+		item.price = Global.items[\"items\"][i]
 		
 		add_child(item)
 		pos += 0.07
@@ -46,6 +47,7 @@ func _on_Cell_pressed():
 		node.get_child(2).text = \"0\"
 		node.items_number = Global.inventory[\"items\"][node.text]
 		node.current_items = 0
+		node.get_child(3).text = \"Итого: 0\"
 		
 		if not Global.inventory[\"items\"][node.text]:
 			Global.inventory[\"items\"].erase(node.text)
