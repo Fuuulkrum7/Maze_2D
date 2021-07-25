@@ -100,13 +100,13 @@ func load_game():
 
 
 # Сохранение игры 
-func save_game():
+func exit():
 	save_file(str(money), "user://money.dat")
 	save_file(inventory, "user://inventory.json", true)
+	get_tree().quit() # default behavior
 
 
 # Обработка выхода из игры
 func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
-		save_game()
-		get_tree().quit() # default behavior
+		exit()

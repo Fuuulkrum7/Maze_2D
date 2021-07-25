@@ -14,3 +14,7 @@ func _on_Info_pressed():
 # Обработка нажатия на кнопку магазин\
 func _on_Shop_pressed():
 	Global.goto_scene("res://Scenes/Shop.tscn")
+
+
+func _onExit_pressed():
+	Global.exit()
