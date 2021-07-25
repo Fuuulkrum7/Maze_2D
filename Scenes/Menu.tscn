@@ -72,6 +72,9 @@ anchor_right = 0.55
 anchor_bottom = 0.65
 custom_fonts/font = SubResource( 4 )
 text = "Выйти"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Ghost" type="Sprite" parent="."]
 position = Vector2( 52.3842, 98.4188 )
@@ -91,3 +94,4 @@ script = ExtResource( 4 )
 [connection signal="pressed" from="Start" to="." method="_on_Start_pressed"]
 [connection signal="pressed" from="Info" to="." method="_on_Info_pressed"]
 [connection signal="pressed" from="Shop" to="." method="_on_Shop_pressed"]
+[connection signal="pressed" from="Exit" to="." method="_on_Exit_pressed"]

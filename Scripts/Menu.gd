@@ -16,5 +16,5 @@ func _on_Shop_pressed():
 	Global.goto_scene("res://Scenes/Shop.tscn")
 
 
-func _onExit_pressed():
+func _on_Exit_pressed():
 	Global.exit()
