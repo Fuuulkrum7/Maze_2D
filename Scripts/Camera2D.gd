@@ -23,7 +23,7 @@ func _input(event):
 		if event.button_index == BUTTON_WHEEL_DOWN and event.pressed and zoom < Vector2(1.9, 1.9):
 			zoom += Vector2(0.05, 0.05)"""
 		
-		if event.button_index == BUTTON_LEFT:
+		if event.button_index == BUTTON_RIGHT:
 			pressed = event.pressed
 	
 	if event is InputEventMouseMotion and pressed:

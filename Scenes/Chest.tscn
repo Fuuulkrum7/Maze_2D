@@ -1,9 +1,21 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Sprites/Chest0.png" type="Texture" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32.1485, 26.7821 )
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Sprite
+
+
+var opened_chest = preload(\"res://Sprites/Chest1.png\")
+
+
+func _on_Chest_entered(body):
+	if body == Global._Player:
+		texture = opened_chest
+"
 
 [node name="Chest" type="Area2D"]
 
@@ -12,3 +24,6 @@ shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
+script = SubResource( 2 )
+
+[connection signal="body_entered" from="." to="Sprite" method="_on_Chest_entered"]

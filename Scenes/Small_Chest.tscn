@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Sprites/Chest0.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Area2D
+
+
+func _ready():
+	connect(\"body_entered\", get_parent(), \"_On_Small_Chest_entered\")
+
+
+"
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 22.7363, 20.318 )
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends Sprite
+
+
+var opened_chest = preload(\"res://Sprites/Chest1.png\")
+
+
+func _on_Small_Chest_body_entered(body):
+	if body == Global._Player:
+		texture = opened_chest
+"
+
+[node name="Small_Chest" type="Area2D"]
+script = SubResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 1 )
+script = SubResource( 3 )
+
+[connection signal="body_entered" from="." to="Sprite" method="_on_Small_Chest_body_entered"]

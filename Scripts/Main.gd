@@ -7,10 +7,10 @@ var maze = []					# заготовка под лабиринт
 var has_key = false				# есть ли ключ
 var items = []					# заготовка под найденный пример
 var mob = null					# заготовка под моба
+var small_chests = []			# заготовка под сундуки
 
 # Заготовки под изображения ключа и сундука
 var closed_chest = preload("res://Sprites/Chest0.png")
-var opened_chest = preload("res://Sprites/Chest1.png")
 var ghost_key = preload("res://Sprites/Key0.png")
 var normal_key = preload("res://Sprites/Key1.png")
 
@@ -101,7 +101,6 @@ func _On_Chest_entered(body):
 			$Navigation.speed = 1.6 * $Navigation.character_speed
 		
 		$Camera/Main_UI/Key.texture = normal_key
-		$Chest/Sprite.texture = opened_chest
 		
 		# Выбираем предмет из сундука
 		var item = Global.choice(Global.items["items"].keys())
