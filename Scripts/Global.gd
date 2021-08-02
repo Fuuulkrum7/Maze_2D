@@ -84,12 +84,106 @@ func load_file(path, user_data = false, is_json = false):
 	return content
 
 
+func cipher(login):
+	# будущий зашифрованый логин
+	var new_login = ""
+	
+	# массив с ключами для шифровки
+	var dict = {
+		"0" : 65,
+		"1" : 10,
+		"2" : 41,
+		"3" : 73,
+		"4" : 82,
+		"5" : 39,
+		"6" : 17,
+		"7" : 48,
+		"8" : 23,
+		"9" : 30
+	}
+	
+	# перебираем логин
+	for i in range(len(login)):
+		# получаем по ключу значение из массива
+		# возводим в куб
+		# и переводим в шестнадцатиричную систему счисления
+		var a = pow(dict[login[i]], 4)
+		a = "%x" % a
+		
+		# добавляем результат данных манипуляций к шифрованному логину
+		new_login += a
+		
+		# если это не последняя цифра логина, добавляем разделитель
+		if i != len(login) - 1:
+			new_login += "g"
+		
+	
+	# возвращаем новый логин
+	return new_login
+
+
+
+# дешифровшик
+func recipher(login):
+	# расшифрованый логин
+	var new_login = ""
+	var log_ = ""
+	var log1 = []
+	
+	for i in login:
+		if i != "g":
+			log_ += i
+		else:
+			log1.append(log_)
+			log_ = ""
+	
+	login = log1
+	login.append(log_)
+	
+	# ключи дешифровки
+	var dict = {
+		"65" : "0",
+		"10" : "1",
+		"41" : "2",
+		"73" : "3",
+		"82" : "4",
+		"38" : "5",
+		"17" : "6",
+		"48" : "7",
+		"23" : "8",
+		"30" : "9"
+	}
+	
+	# перебираем логин
+	for i in range(len(login)):
+		# переводим число в 10-ную систему счн
+		var a = ("0x" + login[i]).hex_to_int()
+		
+		# вычисляем корень 4 cт.
+		a = str(int(sqrt(sqrt(a))))
+		
+		# добавляем к логину число по ключу дешифровки
+		new_login += dict[a]
+	
+	
+	# возвращаем логин
+	return new_login
+
+
+
 # Загрузка данных для игры
 func load_game():
-	money = int(load_file("user://money.dat", true))
-	inventory = load_file("user://inventory.json", true, true)
+	money = load_file("user://.money.dat", true)
+	
+	if money:
+		money = recipher(money)
+	
+	money = int(money)
+	print(money)
+	
+	inventory = load_file("user://.inventory.json", true, true)
 	items = load_file("res://Files/Items.json", false, true)
-	var current_version = load_file("user://version.dat", true)
+	var current_version = load_file("user://.version.dat", true)
 	
 	# если инвентаря ещё нет, создаем его
 	if not inventory or version != current_version:
@@ -106,9 +200,9 @@ func load_game():
 
 # Сохранение игры 
 func exit():
-	save_file(str(money), "user://money.dat")
-	save_file(version, "user://version.dat")
-	save_file(inventory, "user://inventory.json", true)
+	save_file(cipher(str(money)), "user://.money.dat")
+	save_file(version, "user://.version.dat")
+	save_file(inventory, "user://.inventory.json", true)
 	get_tree().quit() # default behavior
 
 

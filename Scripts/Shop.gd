@@ -43,10 +43,10 @@ func _on_Cell_pressed():
 	for i in range($Scroll/Container.get_child_count()):
 		var node = $Scroll/Container.get_child(i - deleted_items)
 		
-		if count < i + 1:
+		while count < i + 1:
 			index += 1
 			key = all_keys[index]
-			count += len(Global.inventory[key])
+			count += Global.inventory[key].size()
 		
 		Global.money += node.price * node.current_items
 		
@@ -71,6 +71,8 @@ func _on_Cell_pressed():
 
 
 func _on_Buy_pressed():
+	current_money_for_spend = 0
+	
 	var all_keys = Global.items.keys()
 	var key = all_keys[0]
 	var count = len(Global.items[key])
@@ -111,10 +113,10 @@ func _on_Buy_pressed():
 	$Coin/Money.text = str(Global.money)
 
 
-func _On_Price_changed(item):
-	current_money_for_spend += item.price
+func _On_Price_changed(item, dir):
+	current_money_for_spend += item.price * dir
 	
-	if current_money_for_spend > Global.money:
+	if current_money_for_spend > Global.money and dir > 0:
 		current_money_for_spend -= item.price
 		item.current_items -= 1
 		item.get_child(2).text = str(item.current_items)

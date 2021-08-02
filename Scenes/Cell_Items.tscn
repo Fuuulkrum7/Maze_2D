@@ -13,7 +13,7 @@ script/source = "extends Label
 var items_number = 0
 var current_items = 0
 var price = 0
-signal button_pressed(item)
+signal button_pressed(item, dir)
 
 
 func _ready():
@@ -24,14 +24,14 @@ func _on_Plus_pressed():
 	if current_items < items_number:
 		current_items += 1
 		$Count.text = str(current_items)
-		emit_signal(\"button_pressed\", self)
+		emit_signal(\"button_pressed\", self, 1)
 
 
 func _on_Minus_pressed():
 	if current_items > 0:
 		current_items -= 1
 		$Count.text = str(current_items)
-		emit_signal(\"button_pressed\", self)
+		emit_signal(\"button_pressed\", self, -1)
 "
 
 [sub_resource type="DynamicFont" id=3]
@@ -110,7 +110,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="pressed" from="Minus" to="Result" method="_on_Button_pressed"]
 [connection signal="pressed" from="Minus" to="." method="_on_Minus_pressed"]
-[connection signal="pressed" from="Plus" to="Result" method="_on_Button_pressed"]
+[connection signal="pressed" from="Minus" to="Result" method="_on_Button_pressed"]
 [connection signal="pressed" from="Plus" to="." method="_on_Plus_pressed"]
+[connection signal="pressed" from="Plus" to="Result" method="_on_Button_pressed"]

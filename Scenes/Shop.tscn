@@ -13,22 +13,22 @@ font_data = ExtResource( 1 )
 [sub_resource type="DynamicFont" id=3]
 font_data = ExtResource( 1 )
 
-[sub_resource type="GDScript" id=6]
+[sub_resource type="GDScript" id=4]
 script/source = "extends VBoxContainer
 
 
-signal price_changed(item)
+signal price_changed(item, dir)
 
 
-func _On_Button_pressed(item):
-	emit_signal(\"price_changed\", item)
+func _On_Button_pressed(item, dir):
+	emit_signal(\"price_changed\", item, dir)
 "
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=5]
 size = 30
 font_data = ExtResource( 1 )
 
-[sub_resource type="GDScript" id=5]
+[sub_resource type="GDScript" id=6]
 script/source = "extends Label
 
 
@@ -100,7 +100,7 @@ __meta__ = {
 
 [node name="Container" type="VBoxContainer" parent="Scroll2"]
 custom_constants/separation = 15
-script = SubResource( 6 )
+script = SubResource( 4 )
 
 [node name="Coin" type="Sprite" parent="."]
 position = Vector2( 974.664, 34.9228 )
@@ -111,11 +111,11 @@ margin_left = -121.0
 margin_top = -11.0
 margin_right = -35.0
 margin_bottom = 19.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 align = 1
 valign = 1
-script = SubResource( 5 )
+script = SubResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
