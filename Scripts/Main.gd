@@ -13,6 +13,7 @@ var small_chests = []			# заготовка под сундуки
 var closed_chest = preload("res://Sprites/Chest0.png")
 var ghost_key = preload("res://Sprites/Key0.png")
 var normal_key = preload("res://Sprites/Key1.png")
+var small_chest = preload("res://Scenes/Small_Chest.tscn")
 
 func Show_maze():
 	# создаем лабиринт
@@ -45,6 +46,24 @@ func Show_maze():
 	$Chest.position = chest_pos
 	$Navigation.start_pos = chest_pos
 	
+	for item in small_chests:
+		remove_child(item)
+	
+	small_chests = []
+	
+	for i in range(2):
+		for j in range(2):
+			if randi() % 3:
+				chest_pos = Vector2((int((randi() % int(WIDTH * 0.3) + int(WIDTH * 0.1) + int(WIDTH * 0.5 * i)) / 2 ) * 2 + 1)* 64 + 32,
+									(int((randi() % int(HEIGHT * 0.3) + int(HEIGHT * 0.1) + int(HEIGHT * 0.5 * j)) / 2) * 2 + 1) * 64 + 32)
+			
+				var new_chest = small_chest.instance()
+				new_chest.position = chest_pos
+				add_child(new_chest)
+			
+				small_chests.append(new_chest)
+	
+	print(len(small_chests))
 	has_key = false
 	items.clear()
 
@@ -77,11 +96,15 @@ func Restart():
 func _On_body_entered(body):
 	# функция рестарта
 	if has_key:
-		for item in items:
-			if Global.inventory["items"].has(item):
-				Global.inventory["items"][item] += 1
-			else:
-				Global.inventory["items"][item] = 1
+		for key in Global.items.keys():
+			for item in items:
+				if Global.items[key].has(item):
+					if Global.inventory[key].has(item):
+						Global.inventory[key][item] += 1
+					else:
+						Global.inventory[key][item] = 1
+		
+		Global.save_file(Global.inventory, "user://inventory.json", true)
 		
 		$Camera/Main_UI.Finish()
 
@@ -109,6 +132,20 @@ func _On_Chest_entered(body):
 		
 		var found = """Найдено:
 			Ключ
+			%s""" % item
+		
+		$Camera/Main_UI/Found_Items.text = found
+		$Camera/Main_UI/Items_Timer.start()
+
+
+func _On_Small_Chest_entered(body):
+	if body == Global._Player:
+		# Выбираем предмет из сундука
+		var item = Global.choice(Global.items["small_items"].keys())
+		
+		items.append(item)
+		
+		var found = """Найдено:
 			%s""" % item
 		
 		$Camera/Main_UI/Found_Items.text = found

@@ -41,16 +41,16 @@ acceleration = 30
 position = Vector2( 507.969, 301.606 )
 z_index = 3
 current = true
-zoom = Vector2( 1.7, 1.7 )
+zoom = Vector2( 1.8, 1.8 )
 script = ExtResource( 4 )
 A = 2.0
 
 [node name="Main_UI" parent="Camera" instance=ExtResource( 6 )]
-margin_left = -869.757
-margin_top = -489.919
-margin_right = 154.243
-margin_bottom = 86.0811
-rect_scale = Vector2( 1.7, 1.7 )
+margin_left = -919.647
+margin_top = -518.428
+margin_right = 104.353
+margin_bottom = 57.5723
+rect_scale = Vector2( 1.8, 1.8 )
 
 [node name="Chest" parent="." instance=ExtResource( 8 )]
 

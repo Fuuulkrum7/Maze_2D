@@ -13,18 +13,25 @@ script/source = "extends Label
 var items_number = 0
 var current_items = 0
 var price = 0
+signal button_pressed(item)
+
+
+func _ready():
+	connect(\"button_pressed\", get_parent(), \"_On_Button_pressed\")
 
 
 func _on_Plus_pressed():
 	if current_items < items_number:
 		current_items += 1
 		$Count.text = str(current_items)
+		emit_signal(\"button_pressed\", self)
 
 
 func _on_Minus_pressed():
 	if current_items > 0:
 		current_items -= 1
 		$Count.text = str(current_items)
+		emit_signal(\"button_pressed\", self)
 "
 
 [sub_resource type="DynamicFont" id=3]
@@ -90,10 +97,10 @@ __meta__ = {
 }
 
 [node name="Result" type="Label" parent="."]
-margin_left = 361.0
-margin_top = -1.0
-margin_right = 551.0
-margin_bottom = 28.0
+margin_left = 351.0
+margin_top = -3.0
+margin_right = 491.0
+margin_bottom = 27.0
 custom_fonts/font = SubResource( 5 )
 text = "Итого: 0"
 align = 1
@@ -103,7 +110,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="pressed" from="Minus" to="." method="_on_Minus_pressed"]
 [connection signal="pressed" from="Minus" to="Result" method="_on_Button_pressed"]
-[connection signal="pressed" from="Plus" to="." method="_on_Plus_pressed"]
+[connection signal="pressed" from="Minus" to="." method="_on_Minus_pressed"]
 [connection signal="pressed" from="Plus" to="Result" method="_on_Button_pressed"]
+[connection signal="pressed" from="Plus" to="." method="_on_Plus_pressed"]
