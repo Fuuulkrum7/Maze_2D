@@ -178,12 +178,21 @@ func load_game():
 	if money:
 		money = recipher(money)
 	
+	var dir = Directory.new()
+	
+	if dir.dir_exists("user://money.dat"):
+		money = load_file("user://money.dat", true)
+		dir.remove("user://money.dat")
+	
 	money = int(money)
-	print(money)
 	
 	inventory = load_file("user://.inventory.json", true, true)
 	items = load_file("res://Files/Items.json", false, true)
 	var current_version = load_file("user://.version.dat", true)
+	
+	if dir.dir_exists("user://inventory.json"):
+		inventory = load_file("user://inventory.json", true, true)
+		dir.remove("user://inventory.json")
 	
 	# если инвентаря ещё нет, создаем его
 	if not inventory or version != current_version:
