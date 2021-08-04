@@ -105,7 +105,7 @@ func cipher(login):
 	# перебираем логин
 	for i in range(len(login)):
 		# получаем по ключу значение из массива
-		# возводим в куб
+		# возводим в 4 степень
 		# и переводим в шестнадцатиричную систему счисления
 		var a = pow(dict[login[i]], 4)
 		a = "%x" % a
@@ -130,6 +130,7 @@ func recipher(login):
 	var log_ = ""
 	var log1 = []
 	
+	# Перебираем строку и разбиваем на части, в которые зашифрованы цифры
 	for i in login:
 		if i != "g":
 			log_ += i
@@ -147,7 +148,7 @@ func recipher(login):
 		"41" : "2",
 		"73" : "3",
 		"82" : "4",
-		"38" : "5",
+		"39" : "5",
 		"17" : "6",
 		"48" : "7",
 		"23" : "8",
@@ -180,7 +181,7 @@ func load_game():
 	
 	var dir = Directory.new()
 	
-	if dir.dir_exists("user://money.dat"):
+	if dir.file_exists("user://money.dat"):
 		money = load_file("user://money.dat", true)
 		dir.remove("user://money.dat")
 	
@@ -190,7 +191,7 @@ func load_game():
 	items = load_file("res://Files/Items.json", false, true)
 	var current_version = load_file("user://.version.dat", true)
 	
-	if dir.dir_exists("user://inventory.json"):
+	if dir.file_exists("user://inventory.json"):
 		inventory = load_file("user://inventory.json", true, true)
 		dir.remove("user://inventory.json")
 	
