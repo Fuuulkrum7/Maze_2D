@@ -33,17 +33,19 @@ func Show_maze():
 	var chest_pos = Vector2((int((randi() % int(WIDTH * 0.6) + WIDTH * 0.2) / 2) * 2 + 1) * 64,
 							(int((randi() % int(HEIGHT * 0.6) + HEIGHT * 0.2) / 2) * 2 + 1) * 64)
 	
+	chest_pos += Vector2(32, 32)
+	
 	# добавляем моба(и выбираем его)
 	mob = Global.choice([Global._Horse, Global._Ghost]).instance()
 	$Navigation.ghost = (mob.name == "Ghost")
 	$Navigation.character = mob
+	$Navigation.start_pos = chest_pos
 	
 	# Ставим моба и сундук на позиции
 	mob.position = chest_pos
 	add_child(mob)
 	print(mob.name)
 	
-	chest_pos += Vector2(32, 38.5)
 	$Chest.position = chest_pos
 	
 	# удаляем старые мини-сундуки
