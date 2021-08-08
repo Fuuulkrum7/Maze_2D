@@ -87,7 +87,7 @@ __meta__ = {
 }
 
 [node name="Container" type="VBoxContainer" parent="Scroll"]
-custom_constants/separation = 15
+custom_constants/separation = 18
 
 [node name="Scroll2" type="ScrollContainer" parent="."]
 margin_left = 518.0

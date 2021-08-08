@@ -192,6 +192,7 @@ func load_game():
 	var current_version = load_file("user://.version.dat", true)
 	
 	if dir.file_exists("user://inventory.json"):
+		print("old inventure")
 		inventory = load_file("user://inventory.json", true, true)
 		dir.remove("user://inventory.json")
 	

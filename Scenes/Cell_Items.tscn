@@ -110,7 +110,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="pressed" from="Minus" to="." method="_on_Minus_pressed"]
 [connection signal="pressed" from="Minus" to="Result" method="_on_Button_pressed"]
-[connection signal="pressed" from="Plus" to="." method="_on_Plus_pressed"]
+[connection signal="pressed" from="Minus" to="." method="_on_Minus_pressed"]
 [connection signal="pressed" from="Plus" to="Result" method="_on_Button_pressed"]
+[connection signal="pressed" from="Plus" to="." method="_on_Plus_pressed"]

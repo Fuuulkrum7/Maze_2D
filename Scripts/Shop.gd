@@ -2,18 +2,29 @@ extends Control
 
 
 var current_money_for_spend = 0
+var translated_keys = {
+	"items": "Обычные предметы",
+	"small_items": "Всякий мусор",
+	"weapon": "Оружие",
+	"potion": "Зелья",
+}
 
 
 func _ready():
 	# Загружаем сцену с самим предметом
 	var Celler = load("res://Scenes/Cell_Items.tscn")
+	var Category = load("res://Scenes/Category.tscn")
+	var item = null
 	
 	# перебираем ключи в инвентаре
 	for key in Global.inventory.keys():
+		var type = Category.instance()
+		type.get_child(0).text = translated_keys[key]
+		$Scroll/Container.add_child(type)
 		# перебираем предметы по ключу
 		for i in Global.inventory[key].keys():
 			# добавляем товар в магазин
-			var item = Celler.instance()
+			item = Celler.instance()
 			
 			# выставляем все требуемые параметры
 			item.text = i
@@ -27,7 +38,7 @@ func _ready():
 		# перебираем все возможные предметы
 		for i in Global.items[key].keys():
 			# добавляем товар
-			var item = Celler.instance()
+			item = Celler.instance()
 			
 			# выводим всю нужную инфу
 			item.text = i
