@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Fonts/TriodPostnaja.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Sprites/Coin.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Shop.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/Type_Of_Item.tscn" type="PackedScene" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 1 )
@@ -77,6 +78,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Type_Of_Item" parent="." instance=ExtResource( 4 )]
+margin_left = 406.0
+margin_top = 26.0
+margin_right = 587.0
+margin_bottom = 49.0
+
 [node name="Scroll" type="ScrollContainer" parent="."]
 margin_left = 21.0
 margin_top = 78.0
@@ -91,9 +98,9 @@ custom_constants/separation = 18
 
 [node name="Scroll2" type="ScrollContainer" parent="."]
 margin_left = 518.0
-margin_top = 66.0
+margin_top = 77.9055
 margin_right = 1002.0
-margin_bottom = 512.0
+margin_bottom = 523.906
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -123,4 +130,5 @@ __meta__ = {
 [connection signal="pressed" from="Exit" to="." method="_on_Exit_pressed"]
 [connection signal="pressed" from="Cell" to="." method="_on_Cell_pressed"]
 [connection signal="pressed" from="Buy" to="." method="_on_Buy_pressed"]
+[connection signal="type_changed" from="Type_Of_Item" to="." method="_on_Type_Of_Item_type_changed"]
 [connection signal="price_changed" from="Scroll2/Container" to="." method="_On_Price_changed"]

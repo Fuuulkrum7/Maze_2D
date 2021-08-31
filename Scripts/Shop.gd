@@ -2,51 +2,53 @@ extends Control
 
 
 var current_money_for_spend = 0
-var translated_keys = {
-	"items": "Обычные предметы",
-	"small_items": "Всякий мусор",
-	"weapon": "Оружие",
-	"potion": "Зелья",
-}
+var key = ""
 
 
 func _ready():
+	key = Global.items.keys()[0]
+	
+	update_items()
+
+
+func update_items():
 	# Загружаем сцену с самим предметом
 	var Celler = load("res://Scenes/Cell_Items.tscn")
-	var Category = load("res://Scenes/Category.tscn")
 	var item = null
 	
-	# перебираем ключи в инвентаре
-	for key in Global.inventory.keys():
-		var type = Category.instance()
-		type.get_child(0).text = translated_keys[key]
-		$Scroll/Container.add_child(type)
-		# перебираем предметы по ключу
-		for i in Global.inventory[key].keys():
-			# добавляем товар в магазин
-			item = Celler.instance()
-			
-			# выставляем все требуемые параметры
-			item.text = i
-			item.items_number = Global.inventory[key][i]
-			item.price = Global.items[key][i]
-			
-			# добавляе товар на саму сцену магазина
-			$Scroll/Container.add_child(item)
+	# перебираем предметы по ключу
+	for i in Global.inventory[key].keys():
+		# добавляем товар в магазин
+		item = Celler.instance()
 		
-	for key in Global.items.keys():
-		# перебираем все возможные предметы
-		for i in Global.items[key].keys():
-			# добавляем товар
-			item = Celler.instance()
+		# выставляем все требуемые параметры
+		item.text = i
+		item.items_number = Global.inventory[key][i]
+		item.price = Global.items[key][i]
+		
+		# добавляе товар на саму сцену магазина
+		$Scroll/Container.add_child(item)
+	
+	# перебираем все возможные предметы
+	for i in Global.items[key].keys():
+		# добавляем товар
+		item = Celler.instance()
+		
+		# выводим всю нужную инфу
+		item.text = i
+		item.items_number = 100
+		item.price = Global.items[key][i]
 			
-			# выводим всю нужную инфу
-			item.text = i
-			item.items_number = 100
-			item.price = Global.items[key][i]
-			
-			# добавляем на сцену товар
-			$Scroll2/Container.add_child(item)
+		# добавляем на сцену товар
+		$Scroll2/Container.add_child(item)
+
+
+func clear_items():
+	for i in $Scroll/Container.get_children():
+		$Scroll/Container.remove_child(i)
+	
+	for i in $Scroll2/Container.get_children():
+		$Scroll2/Container.remove_child(i)
 
 
 # обработка нажатия на кнопку выхода
@@ -59,29 +61,10 @@ func _on_Cell_pressed():
 	# число удаленных предметов
 	var deleted_items = 0
 	
-	# все ключи и тд, и тп. Ща все объясню
-	var all_keys = Global.inventory.keys()
-	# текущий ключ
-	var key = all_keys[0]
-	# число предметов конкретно сейчас с этим ключом
-	var count = len(Global.inventory[key])
-	
 	# перебираем предметы в магазине (для продажи)
 	for i in range($Scroll/Container.get_child_count()):
 		# получаем узел
 		var node = $Scroll/Container.get_child(i - deleted_items)
-		
-		# короче, схема такая
-		# пока число предметов в инвентаре <= чем текущий индекс предмета
-		# меняем ключи и добавляем к числу элементов новое по ключу
-		# короче, это алгоритм смены ключи
-		while count <= i:
-			# удаляем текущий ключ
-			all_keys.remove(0)
-			# выбираем следующий
-			key = all_keys[0]
-			# добавляем к числу предметов 
-			count += Global.inventory[key].size()
 		
 		# добавляем к денюшкам игрока ещё денег (число предметов на их стоимость)
 		Global.money += node.price * node.current_items
@@ -113,18 +96,8 @@ func _on_Buy_pressed():
 	# обнуляем деньги, которые будут потрачены
 	current_money_for_spend = 0
 	
-	var all_keys = Global.items.keys()
-	var key = all_keys[0]
-	var count = len(Global.items[key])
-	var index = 0
-	
 	for i in range($Scroll2/Container.get_child_count()):
 		var node = $Scroll2/Container.get_child(i)
-		
-		if count < i + 1:
-			index += 1
-			key = all_keys[index]
-			count += len(Global.items[key])
 		
 		var price = Global.items[key][node.text]
 		Global.money -= price * node.current_items
@@ -164,3 +137,10 @@ func _On_Price_changed(item, dir):
 		item.current_items -= 1
 		item.get_child(2).text = str(item.current_items)
 		item.get_child(3).text = "Итого" + str(item.current_items * item.price)
+
+
+func _on_Type_Of_Item_type_changed(new_key):
+	key = new_key
+	
+	clear_items()
+	update_items()

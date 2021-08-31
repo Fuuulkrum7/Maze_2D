@@ -1,0 +1,80 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Fonts/TriodPostnaja.ttf" type="DynamicFontData" id=1]
+
+[sub_resource type="DynamicFont" id=1]
+size = 22
+font_data = ExtResource( 1 )
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Label
+
+var keys = {\"Обычные предметы\": \"items\",
+ \"Всякий мусор\": \"small_items\",
+ \"Оружие\": \"weapon\",
+ \"Зелья\": \"potion\",
+}
+
+var item_type = \"\"
+signal type_changed(type)
+var index = 0
+
+
+func _ready():
+	text = keys.keys()[index]
+
+
+func _on_Left_pressed():
+	if index > 0:
+		index -= 1
+	else:
+		index = len(keys) - 1
+	
+	text = keys.keys()[index]
+	emit_signal(\"type_changed\", keys[text])
+
+
+func _on_Right_pressed():
+	if index < len(keys) - 1:
+		index += 1
+	else:
+		index = 0
+	
+	text = keys.keys()[index]
+	emit_signal(\"type_changed\", keys[text])
+"
+
+[node name="Type_Of_Item" type="Label"]
+margin_left = -2.0
+margin_top = 1.0
+margin_right = 188.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 1 )
+align = 1
+valign = 1
+script = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Left" type="Button" parent="."]
+margin_left = -21.6632
+margin_right = -1.66324
+margin_bottom = 20.0
+text = "<"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Right" type="Button" parent="."]
+margin_left = 192.824
+margin_top = -0.0572586
+margin_right = 212.824
+margin_bottom = 19.9427
+text = ">"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="Left" to="." method="_on_Left_pressed"]
+[connection signal="pressed" from="Right" to="." method="_on_Right_pressed"]
