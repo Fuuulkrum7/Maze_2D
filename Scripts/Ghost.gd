@@ -4,6 +4,7 @@ extends Area2D
 export var speed = 2.5
 
 
+var paused = false
 var left = true
 var left_img = preload("res://Sprites/Ghost0.png")
 var right_img = preload("res://Sprites/Ghost1.png")
@@ -27,5 +28,6 @@ func _physics_process(delta):
 	
 	if sqrt(delta_pos.x * delta_pos.x + delta_pos.y * delta_pos.y) < 800:
 		delta_pos /= max_delta
-	
-		position += delta_pos.normalized() * speed
+		
+		if not paused:
+			position += delta_pos.normalized() * speed

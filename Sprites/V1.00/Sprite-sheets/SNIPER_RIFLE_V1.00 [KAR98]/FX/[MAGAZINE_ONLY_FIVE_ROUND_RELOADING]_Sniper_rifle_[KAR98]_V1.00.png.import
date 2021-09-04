@@ -1,0 +1,34 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/[MAGAZINE_ONLY_FIVE_ROUND_RELOADING]_Sniper_rifle_[KAR98]_V1.00.png-71442722ee347480d17e8b0662fd3f39.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://Sprites/V1.00/Sprite-sheets/SNIPER_RIFLE_V1.00 [KAR98]/FX/[MAGAZINE_ONLY_FIVE_ROUND_RELOADING]_Sniper_rifle_[KAR98]_V1.00.png"
+dest_files=[ "res://.import/[MAGAZINE_ONLY_FIVE_ROUND_RELOADING]_Sniper_rifle_[KAR98]_V1.00.png-71442722ee347480d17e8b0662fd3f39.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=true
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+stream=false
+size_limit=0
+detect_3d=true
+svg/scale=1.0

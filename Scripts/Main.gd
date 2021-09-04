@@ -79,8 +79,6 @@ func Show_maze():
 
 func _ready():
 	randomize()
-	# готовим лабиринт
-	Show_maze()
 	
 	# ставим на требуемые места старт и финиш
 	var Spawn = Global._Spawn.instance()
@@ -91,6 +89,9 @@ func _ready():
 	var Finish = Global._Finish.instance()
 	Finish.position = Vector2((WIDTH - 2) * 64 + 32, (HEIGHT - 2) * 64 + 32)
 	add_child(Finish)
+	
+	# готовим лабиринт
+	Show_maze()
 
 
 func Restart():
@@ -121,7 +122,7 @@ func _On_body_entered(body):
 				Global.inventory[item[1]][item[0]] = 1
 		
 		# сохраняем инвентарь
-		Global.save_file(Global.inventory, "user://inventory.json", true)
+		Global.save_file(Global.inventory, "user://.inventory.json", true)
 		
 		# запускаем финиш
 		$Camera/Main_UI.Finish()

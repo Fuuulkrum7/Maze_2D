@@ -8,6 +8,8 @@ var current_speed = 0
 var speed = Vector2()
 var can_jump = true
 
+var pistol = preload("res://Scenes/Pistol.tscn")
+var potion = preload("res://Scenes/Potion.tscn")
 
 signal maze_entered
 

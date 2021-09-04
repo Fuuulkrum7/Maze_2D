@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Fonts/TriodPostnaja.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Scripts/Main_UI.gd" type="Script" id=2]
 [ext_resource path="res://Sprites/Key0.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/Inventory.tscn" type="PackedScene" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -130,9 +131,27 @@ one_shot = true
 wait_time = 5.0
 one_shot = true
 
+[node name="Inventory" parent="." instance=ExtResource( 4 )]
+position = Vector2( 512, 545 )
+
+[node name="Freeze" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
+[node name="Speed" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="Slow_Enemy" type="Timer" parent="."]
+wait_time = 6.0
+one_shot = true
+
 [connection signal="pressed" from="Continue" to="." method="Continue"]
 [connection signal="pressed" from="Restart" to="." method="_on_Restart_pressed"]
 [connection signal="pressed" from="Exit" to="." method="_on_Exit_pressed"]
 [connection signal="timeout" from="One_Second" to="." method="_on_One_Second_timeout"]
 [connection signal="timeout" from="Finish_Timer" to="." method="_on_Finish_Timer_timeout"]
 [connection signal="timeout" from="Items_Timer" to="Found_Items" method="_on_Items_Timer_timeout"]
+[connection signal="timeout" from="Freeze" to="." method="_on_Freeze_timeout"]
+[connection signal="timeout" from="Speed" to="." method="_on_Speed_timeout"]
+[connection signal="timeout" from="Slow_Enemy" to="." method="_on_Slow_Enemy_timeout"]

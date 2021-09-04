@@ -6,8 +6,18 @@
 script/source = "extends Area2D
 
 
+var entered = false
+signal small_chest_entered(body)
+
+
 func _ready():
-	connect(\"body_entered\", get_parent(), \"_On_Small_Chest_entered\")
+	connect(\"small_chest_entered\", get_parent(), \"_On_Small_Chest_entered\")
+
+
+func _on_Small_Chest_body_entered(body):
+	if not entered:
+		entered = true
+		emit_signal(\"small_chest_entered\", body)
 "
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -26,9 +36,11 @@ func _on_Small_Chest_body_entered(body):
 "
 
 [node name="Small_Chest" type="Area2D"]
+light_mask = 3
 script = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 3
 shape = SubResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -37,3 +49,4 @@ texture = ExtResource( 1 )
 script = SubResource( 3 )
 
 [connection signal="body_entered" from="." to="Sprite" method="_on_Small_Chest_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_Small_Chest_body_entered"]

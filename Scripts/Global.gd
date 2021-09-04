@@ -7,7 +7,7 @@ var current_scene = null
 var money = 0
 var inventory = {}
 var items = {}
-var version = "alpha 0.9"
+var version = "alpha 0.91"
 
 const _Finish = preload("res://Scenes/Finish.tscn")
 const _Spawn = preload("res://Scenes/SpawnPoint.tscn")
@@ -191,11 +191,6 @@ func load_game():
 	items = load_file("res://Files/Items.json", false, true)
 	var current_version = load_file("user://.version.dat", true)
 	
-	if dir.file_exists("user://inventory.json"):
-		print("old inventure")
-		inventory = load_file("user://inventory.json", true, true)
-		dir.remove("user://inventory.json")
-	
 	# если инвентаря ещё нет, создаем его
 	if not inventory or version != current_version:
 		print("new version")
@@ -203,7 +198,7 @@ func load_game():
 		if not inventory:
 			inventory = {}
 		for key in items.keys():
-			if not inventory.has(key):
+			#if not inventory.has(key):
 				inventory[key] = {
 					
 				}

@@ -22,7 +22,7 @@ func _process(delta):
 		_update_navigation_path(character.position, Global._Player.position)
 		var walk_distance = speed * delta
 	
-		if distance_:
+		if distance_ and not character.paused:
 			move_along_path(walk_distance)
 
 
